@@ -1,12 +1,12 @@
 package com.example;
 
-import static org.mockito.Mockito.*;
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 public class AnimalTest {
 
@@ -24,7 +24,8 @@ public class AnimalTest {
         List<String> expectedFood = List.of("Трава", "Различные растения");
         List<String> actualFood = animal.getFood("Травоядное");
 
-        assertEquals(expectedFood, actualFood);
+        // Добавлено поясняющее сообщение
+        assertEquals("Список пищи для травоядного некорректен", expectedFood, actualFood);
     }
 
     @Test
@@ -33,14 +34,23 @@ public class AnimalTest {
         List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
         List<String> actualFood = animal.getFood("Хищник");
 
-        assertEquals(expectedFood, actualFood);
+        // Добавлено поясняющее сообщение
+        assertEquals("Список пищи для хищника некорректен", expectedFood, actualFood);
     }
 
-    @Test(expected = Exception.class)
-    public void testGetFoodUnknown() throws Exception {
+    @Test
+    public void testGetFoodUnknown() {
         // Проверяем, что метод getFood выбрасывает исключение для неизвестного вида животного
-        animal.getFood("Некорректный вид");
+        Exception exception = assertThrows(Exception.class, () -> {
+            animal.getFood("Некорректный вид");
+        });
+        // Проверяем, что сообщение об ошибке соответствует ожидаемому
+        String expectedMessage = "Неизвестный вид животного, используйте значение Травоядное или Хищник";
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
     }
+
 
     @Test
     public void testGetFamily() {
@@ -48,6 +58,7 @@ public class AnimalTest {
         String expectedFamily = "Существует несколько семейств: заячьи, беличьи, мышиные, кошачьи, псовые, медвежьи, куньи";
         String actualFamily = animal.getFamily();
 
-        assertEquals(expectedFamily, actualFamily);
+        // Добавлено поясняющее сообщение
+        assertEquals("Семейства животных некорректны", expectedFamily, actualFamily);
     }
 }

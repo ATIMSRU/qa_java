@@ -1,23 +1,22 @@
 package com.example;
 
-import static org.mockito.Mockito.*;
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import java.util.List;
 import java.util.Arrays;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 
 @RunWith(Parameterized.class)
 public class LionParamTest {
 
+    private final String sex;  // Пол для параметризированного теста
+    private final boolean expectedHasMane;  // Ожидаемый результат для гривы
     private Feline mockFeline;  // Мок для класса Feline
     private Lion lion;  // Тестируемый объект
-    private String sex;  // Пол для параметризированного теста
-    private boolean expectedHasMane;  // Ожидаемый результат для гривы
 
     // Конструктор для параметризированного теста
     public LionParamTest(String sex, boolean expectedHasMane) {
@@ -28,9 +27,9 @@ public class LionParamTest {
     @Parameterized.Parameters
     public static Iterable<Object[]> data() {
         // Параметры для теста: Пол льва и ожидание наличия гривы
-        return Arrays.asList(new Object[][] {
-                { "Самец", true },   // Для самца ожидаем, что грива есть
-                { "Самка", false }   // Для самки ожидаем, что гривы нет
+        return Arrays.asList(new Object[][]{
+                {"Самец", true},   // Для самца ожидаем, что грива есть
+                {"Самка", false}   // Для самки ожидаем, что гривы нет
         });
     }
 
@@ -49,12 +48,4 @@ public class LionParamTest {
         assertEquals(expectedHasMane, lion.doesHaveMane());
     }
 
-    @Test
-    public void testGetFood() throws Exception {
-        // Ожидаем, что метод getFood() у Feline вернет список хищников
-        when(mockFeline.getFood("Хищник")).thenReturn(List.of("Животные", "Птицы", "Рыба"));
-
-        // Проверяем, что метод getFood() у Lion работает корректно
-        assertEquals(List.of("Животные", "Птицы", "Рыба"), lion.getFood());
-    }
 }

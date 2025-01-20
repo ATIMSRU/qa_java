@@ -1,12 +1,14 @@
 package com.example;
 
-import static org.mockito.Mockito.*;
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class LionTest {
 
@@ -25,10 +27,10 @@ public class LionTest {
     @Test
     public void testGetKittens() {
         // Ожидаем, что метод getKittens() у Feline вернет 3
-        when(mockFeline.getKittens()).thenReturn(3);
+        when(mockFeline.getKittens()).thenReturn(1);
 
         // Проверяем, что метод getKittens() у Lion возвращает правильное количество котят
-        assertEquals(3, lion.getKittens());
+        assertEquals(1, lion.getKittens());
     }
 
     @Test
