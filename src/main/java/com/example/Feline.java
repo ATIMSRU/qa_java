@@ -15,11 +15,10 @@ public class Feline extends Animal implements Predator {
     }
 
     public int getKittens() {
-        return getKittens(1);
+        return getKittens(1);  // Используем метод с параметром по умолчанию
     }
 
     public int getKittens(int kittensCount) {
-        return kittensCount;
+        return kittensCount;  // Возвращаем переданное количество котят
     }
-
 }
