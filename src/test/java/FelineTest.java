@@ -6,7 +6,8 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 
 public class FelineTest {
 
@@ -31,18 +32,14 @@ public class FelineTest {
         assertEquals(kittensCount, feline.getKittens(kittensCount));  // Проверяем, что метод вернет 5 котят
     }
 
+
     @Test
     public void testEatMeatReturnsCorrectFood() throws Exception {
-        // Мокаем метод getFood в Feline, так как он вызывается в eatMeat
-        Feline mockFeline = mock(Feline.class);
-        // Мокаем только метод getFood для возвращения нужного списка пищи
-        doReturn(List.of("Животные", "Птицы", "Рыба")).when(mockFeline).getFood("Хищник");
+        // Используем реальный объект Feline
+        List<String> food = feline.eatMeat();  // Вызываем метод eatMeat()
 
-        // Вызов метода eatMeat() с использованием замоканного объекта
-        List<String> food = feline.eatMeat();  // Используем замоканный объект
-
-        // Проверяем результат, который должен быть возвращен
-        assertEquals(List.of("Животные", "Птицы", "Рыба"), food);  // Проверяем результат
+        // Проверяем, что метод возвращает корректный список пищи
+        assertEquals("Mетод возвращает некорректный список пищи", List.of("Животные", "Птицы", "Рыба"), food);
     }
 
     @Test
